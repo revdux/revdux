@@ -1,9 +1,6 @@
-function Modal() {
-  return (
-    <div className="m-auto flex h-screen items-center justify-center">
-      <div></div>
-    </div>
-  );
-}
+import { useState } from "react";
 
-export default Modal;
+export default function Modal() {
+  const [showModal, setShowModal] = useState(false);
+  return <></>;
+}
