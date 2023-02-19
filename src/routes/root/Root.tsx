@@ -1,30 +1,25 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ChannelsList from "../../components/Channels/ChannelsList";
-import Messages from "../../components/Messages/Messages";
-import ServerList from "../../components/servers/ServerList";
+import Loading from "../../components/Loading";
+const ServerList = lazy(() => import("../../components/ServerList"));
 
-function Root() {
-  const [showModal, setShowModal] = useState(false);
-
+const Root = () => {
   const navigate = useNavigate();
-
+  console.log("Parent component re-rendered");
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/login");
+      navigate("/login", {
+        replace: true,
+      });
     }
-  }, []);
+  });
 
   return (
-    <>
-      <div className="flex flex-row">
-        <ServerList />
-        <ChannelsList />
-        <Messages />
-      </div>
-    </>
+    <Suspense fallback={<Loading />}>
+      <ServerList />
+    </Suspense>
   );
-}
+};
 
 export default Root;

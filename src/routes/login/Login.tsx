@@ -1,6 +1,7 @@
-import { FormEvent, useState } from "react";
-import { redirect, useNavigate } from "react-router-dom";
+import { FormEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { API } from "revolt-api";
+import Titlebar from "../../components/Native";
 
 const client = new API();
 
@@ -54,6 +55,16 @@ function Login() {
       console.error(error);
     }
   }
+
+  useEffect(() => {
+    console.log("useEffect called");
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/", {
+        replace: true,
+      });
+    }
+  });
 
   return (
     <>

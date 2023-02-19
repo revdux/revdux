@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy } from "react";
 import ReactDOM from "react-dom/client";
 import Login from "./routes/login/Login";
 import {
@@ -8,6 +8,8 @@ import {
 } from "react-router-dom";
 import "./globals.css";
 import Root from "./routes/root/Root";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +21,10 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
+    path: "/server/:id",
+    element: <Root />,
+  },
+  {
     path: "*",
     element: <Navigate to="/" replace />,
   },
@@ -26,6 +32,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
